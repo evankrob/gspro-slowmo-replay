@@ -1,0 +1,4 @@
+*.log
+*.log.old
+backup/
+settings.ps1
