@@ -133,7 +133,11 @@ function Apply-ReplaySettings($ws) {
         Invoke-Obs $ws SetInputSettings @{ inputName = $s; inputSettings = @{
             duration = [int]($CaptureSeconds * 1000); retrieve_delay = $RetrieveDelayMs
             speed_percent = [double]$SpeedPercent; directory = ($SaveDirectory -replace '\\', '/')
-            internal_frames = $true; sound_trigger = $false; end_action = 1 } } | Out-Null
+            internal_frames = $true; sound_trigger = $false; end_action = 1
+            # Keep exactly one replay. With more, Replay Source switches to the oldest kept
+            # replay (already finished and paused) once the list is full, so the overlay shows
+            # a frozen frame of an earlier swing.
+            replays = 1 } } | Out-Null
     }
     $v = Invoke-Obs $ws GetVideoSettings
     $script:canvas = @([int]$v.baseWidth, [int]$v.baseHeight)
