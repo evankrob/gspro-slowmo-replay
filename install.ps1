@@ -231,7 +231,7 @@ if (-not (Test-Path $SaveDirectory)) { New-Item -ItemType Directory -Force $Save
 foreach ($p in @(@{ Name = 'DTL Replay'; Src = 'DTL Cam'; Tag = 'DTL' }, @{ Name = 'Face-On Replay'; Src = 'Face-On Cam'; Tag = 'Face-On' })) {
     Invoke-Obs $ws CreateInput @{ sceneName = $SceneName; inputName = $p.Name; inputKind = 'replay_source'; inputSettings = @{
         source = $p.Src; source_audio = ''; duration = [int]($CaptureSeconds * 1000); retrieve_delay = $RetrieveDelayMs
-        speed_percent = [double]$SpeedPercent; end_action = 1; visibility_action = 3; replays = 3
+        speed_percent = [double]$SpeedPercent; end_action = 1; visibility_action = 3; replays = 1
         internal_frames = $true; sound_trigger = $false; lossless = $false
         directory = ($SaveDirectory -replace '\\', '/'); file_format = "%CCYY-%MM-%DD %hh.%mm.%ss $($p.Tag)" } } | Out-Null
 }
